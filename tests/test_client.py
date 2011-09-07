@@ -58,6 +58,13 @@ class ServiceTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_deployments(self):
+        service = self.service
+        for dep in service.deployment_clients: dep.read()
+        for dep in service.deployment_servers: dep.read()
+        for dep in service.deployment_serverclasses: dep.read()
+        for dep in service.deployment_tenants: dep.read()
+
     def test_apps(self):
         service = self.service
 

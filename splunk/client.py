@@ -60,6 +60,12 @@ PATH_MESSAGES = "messages/"
 PATH_ROLES = "authentication/roles/"
 PATH_STANZA = "configs/conf-%s/%s" # (file, stanza)
 PATH_USERS = "authentication/users/"
+PATH_DEP_SERV = "deployment/server/"
+PATH_DEP_CLI = "deployment/client/"
+PATH_DEP_SERV_CL = "deployment/serverclass/"
+PATH_DEP_TENANT = "deployment/tenants/"
+PATH_DSEARCH_PEER = "search/distributed/peers/"
+PATH_DSEARCH_CONF = "search/distributed/config/"
 
 XNAMEF_ATOM = "{http://www.w3.org/2005/Atom}%s"
 XNAME_ENTRY = XNAMEF_ATOM % "entry"
@@ -107,6 +113,66 @@ class Service(Context):
                         service.post(PATH_CONF % conf, name=stanza, **kwargs),
                     dtor=lambda service, stanza:
                         service.delete(_path_stanza(conf, stanza))))
+
+    @property
+    def deployment_clients(self):
+        """Return a collection of deployment clients."""
+        return Collection(self, PATH_DEP_CLI, "deployment_clients",
+            item=lambda service, name: 
+                Entity(service, PATH_DEP_CLI + name, name),
+            ctor=lambda service, name, **kwargs:
+                service.post(PATH_DEP_CLI, name=name, **kwargs),
+            dtor=lambda service, name: service.delete(PATH_DEP_CLI + name))
+
+    @property
+    def deployment_servers(self):
+        """Return a collection of deployment servers."""
+        return Collection(self, PATH_DEP_SERV, "deployment_servers",
+            item=lambda service, name: 
+                Entity(service, PATH_DEP_SERV + name, name),
+            ctor=lambda service, name, **kwargs:
+                service.post(PATH_DEP_SERV, name=name, **kwargs),
+            dtor=lambda service, name: service.delete(PATH_DEP_SERV + name))
+
+    @property
+    def deployment_serverclasses(self):
+        """Return a collection of deployment server classes."""
+        return Collection(self, PATH_DEP_SERV_CL, "deployment_serverclasses",
+            item=lambda service, name: 
+                Entity(service, PATH_DEP_SERV_CL + name, name),
+            ctor=lambda service, name, **kwargs:
+                service.post(PATH_DEP_SERV_CL, name=name, **kwargs),
+            dtor=lambda service, name: service.delete(PATH_DEP_SERV_CL + name))
+
+    @property
+    def deployment_tenants(self):
+        """Return a collection of deployment tenants."""
+        return Collection(self, PATH_DEP_TENANT, "deptloyment_tenants",
+            item=lambda service, name: 
+                Entity(service, PATH_DEP_TENANT + name, name),
+            ctor=lambda service, name, **kwargs:
+                service.post(PATH_DEP_TENANT, name=name, **kwargs),
+            dtor=lambda service, name: service.delete(PATH_DEP_TENANT + name))
+
+    @property
+    def distributed_search(self):
+        """Return a collection of distributed search peers."""
+        return Collection(self, PATH_DSEARCH_PEER, "distributed_search",
+            item=lambda service, name: 
+                Entity(service, PATH_DSEARCH_PEER + name, name),
+            ctor=lambda service, name, **kwargs:
+                service.post(PATH_DSEARCH_PEER, name=name, **kwargs),
+            dtor=lambda service, name: service.delete(PATH_DSEARCH_PEER + name))
+
+    @property
+    def distributed_confs(self):
+        """Return a collection of deployment conigs."""
+        return Collection(self, PATH_DSEARCH_CONF, "distbuted_confs",
+            item=lambda service, name: 
+                Entity(service, PATH_DSEARCH_CONF + name, name),
+            ctor=lambda service, name, **kwargs:
+                service.post(PATH_DSEARCH_CONF, name=name, **kwargs),
+            dtor=lambda service, name: service.delete(PATH_DSEARCH_CONF + name))
 
     @property
     def capabilities(self):
