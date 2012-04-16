@@ -10,6 +10,8 @@ splunklib.binding
 -----------------
 
 .. automodule:: splunklib.binding
+    :members:
+    :undoc-members:
 
 .. autofunction:: connect
 
@@ -29,6 +31,8 @@ splunklib.client
 ----------------
 
 .. automodule:: splunklib.client
+    :members:
+    :undoc-members:
 
 .. autofunction:: connect
 
@@ -136,6 +140,8 @@ splunklib.data
 --------------
 
 .. automodule:: splunklib.data
+    :members:
+    :undoc-members:
 
 .. autofunction:: load
 
@@ -149,6 +155,8 @@ splunklib.results
 -----------------
 
 .. automodule:: splunklib.results
+    :members:
+    :undoc-members:
 
 .. autoclass:: ResultsReader
 
